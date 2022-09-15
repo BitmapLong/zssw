@@ -18,7 +18,28 @@ _plugins['{ruleid}'] = {
     @type   vague 模糊匹配(匹配书名和作者名)   total 绝对匹配/匹配全部 (匹配书名以及作者名, 通常用于更换书源)
     @pg     页码
     */
-    search(wd, author = '', type = 'vague', pg = 1){
+    search(wd, opction){
+        let author = '', type = 'vague', pg = 1;
+        for(var index in opction){
+            var data = '';
+            switch(typeof opction[index]){
+                case 'number':
+                    data = opction[index];
+                break;
+                case 'string':
+                    data = '"' + opction[index] + '"';
+                break;
+                case 'function':
+                    data = opction[index];
+                break;
+                default:
+                    data = JSON.stringify(opction[index]);
+                break;
+            }
+            var _bl = 'var ' + index + ' = ' + data + ';';
+            eval(_bl);
+        }
+        
         console.log('调用了书源规则的 search 方法', wd, this.vc.$req);
         let url = this.conf.search.replace('{wd}', wd);
         this.vc.$req({
