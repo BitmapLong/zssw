@@ -4,8 +4,8 @@ _plugins['{ruleid}'] = {
     //自定义配置项
     conf: {
         host: 'https://www.jhssd.com',
-        search: this.conf.host + '/search.html?ie=utf-8&word={wd}',
-        chapter: this.conf.host + '/{bid}/{cid}.html',
+        search(){ return this.conf.host + '/search.html?ie=utf-8&word={wd}' },
+        chapter(){ return this.conf.host + '/{bid}/{cid}.html' },
     },
     header: {
         
