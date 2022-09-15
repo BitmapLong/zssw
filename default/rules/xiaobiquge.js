@@ -48,11 +48,10 @@ _plugins['{ruleid}'] = {
             data: {method, header},
         }).then({
             response: function(response){
-                console.log(response.data);
-                
+                callback(response.data);
             },
             error: function(error){
-                console.log(error);
+                error(error);
             }
         });
     },
