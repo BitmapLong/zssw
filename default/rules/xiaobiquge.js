@@ -4,8 +4,8 @@ _plugins['{ruleid}'] = {
     //自定义配置项
     conf: {
         host: 'https://www.jhssd.com',
-        search(){ return this.conf.host + '/search.html?ie=utf-8&word={wd}' },
-        chapter(){ return this.conf.host + '/{bid}/{cid}.html' },
+        search: '/search.html?ie=utf-8&word={wd}',
+        chapter: '/{bid}/{cid}.html',
     },
     header: {
         
@@ -41,7 +41,7 @@ _plugins['{ruleid}'] = {
         }
         
         console.log('调用了书源规则的 search 方法', wd, this.vc.$req);
-        let url = this.conf.search.replace('{wd}', wd);
+        let url = this.conf.host + this.conf.search.replace('{wd}', wd);
         this.vc.$req({
             url: '/req/' + encodeURIComponent(url),
             method: 'post',
