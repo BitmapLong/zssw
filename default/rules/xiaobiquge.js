@@ -45,7 +45,7 @@ _plugins['{ruleid}'] = {
         this.vc.$req({
             url: '/req/' + encodeURIComponent(url),
             method: 'post',
-            data: {method, header},
+            data: {method: this.method, header: this.header},
         }).then({
             response: function(response){
                 callback(response.data);
