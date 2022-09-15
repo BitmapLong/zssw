@@ -1,12 +1,16 @@
 let currVC = this;
-_plugins['ruleid'] = {
-    //自定义配置项
+_plugins['{ruleid}'] = {
     vc: currVC,
-    rule_id: 'ruleid',
-    conf:   {
-        search: 'https://novel.snssdk.com/api/novel/channel/homepage/search/search/v1/?aid=13&q={wd}',
-        chapter: 'https://novel.snssdk.com/api/novel/book/reader/full/v1/?item_id={cid}',
+    //自定义配置项
+    conf: {
+        host: 'https://www.jhssd.com',
+        search: this.conf.host + '/search.html?ie=utf-8&word={wd}',
+        chapter: this.conf.host + '/{bid}/{cid}.html',
     },
+    header: {
+        
+    },
+    method: 'get',
     //搜索书籍
     /*
     @wd 书名
@@ -19,16 +23,12 @@ _plugins['ruleid'] = {
         let url = this.conf.search.replace('{wd}', wd);
         this.vc.$req({
             url: '/req/' + encodeURIComponent(url),
-            method: 'get',
-            responseType: 'html',
+            method: 'post',
+            data: {method, header},
         }).then({
             response: function(response){
-                console.log(JSON.parse(response.data));
-                let data = JSON.parse(response.data);
-                if(data.code == 0 && data.data.ret_data.length > 0){
-                    let next_pg = data.data.offset;
-                    
-                }
+                console.log(response.data);
+                
             },
             error: function(error){
                 console.log(error);
@@ -40,7 +40,7 @@ _plugins['ruleid'] = {
         
     },
     //获取章节列表
-    list: function(bid){
+    chapterlist: function(bid){
         
     },
     //获取章节内容
